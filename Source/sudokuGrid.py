@@ -6,11 +6,13 @@ import time
 numberlist = None
 sudokuObj = None
 
+
 def fileUpload():
     global numberlist
     global sudokuObj
 
-    if (sudokuObj != None): sudokuObj=None
+    if sudokuObj is not None:
+        sudokuObj = None
 
     filepath = filedialog.askopenfile(initialdir="/", title="Select Sudoku File")
     print(filepath.name)
@@ -20,15 +22,18 @@ def fileUpload():
     sudokuObj.clear()
     update()
 
+
 def solve():
     global sudokuObj
     sudokuObj.solve()
     update()
 
+
 def solveAll():
     global sudokuObj
-    while(sudokuObj.solve()):
+    while sudokuObj.solve():
         update()
+
 
 def update():
     global sudokuObj
@@ -43,7 +48,6 @@ def update():
 master = Tk()
 
 sudokuGrid = Canvas(master, width=640, height=640)
-#sudokuGrid.pack(side = LEFT)
 sudokuGrid.grid(row=1, column=0, padx=10, pady=0)
 
 sudokuGrid.create_rectangle(50, 50, 590, 590, fill="white", width=5)
@@ -54,23 +58,20 @@ for x in range(0, 540, 180):
         sudokuGrid.create_line((50 + x + y), 50, (50 + x + y), 590, width=1)
         sudokuGrid.create_line(50, (50 + x + y), 590, (50 + x + y), width=1)
 
-buttonFrame = Frame(width=100, height=200, relief = RAISED)
-#buttonFrame.pack(side=RIGHT, expand=TRUE)
+buttonFrame = Frame(width=100, height=200, relief=RAISED)
 buttonFrame.grid(row=1, column=1, padx=(0, 50), pady=10)
 
-fileUploadButton = Button(buttonFrame, text="Choose Sudoku File", command = fileUpload)
+fileUploadButton = Button(buttonFrame, text="Choose Sudoku File", command=fileUpload)
 fileUploadButton.grid(row=1, column=0, pady=10)
 
-fileSolveButton = Button(buttonFrame, text="Solve Pass", command = solve)
+fileSolveButton = Button(buttonFrame, text="Solve Pass", command=solve)
 fileSolveButton.grid(row=2, column=0, pady=10)
 
-fileSolveButton = Button(buttonFrame, text="Solve All", command = solveAll)
+fileSolveButton = Button(buttonFrame, text="Solve All", command=solveAll)
 fileSolveButton.grid(row=3, column=0, pady=10)
 
 titleText = Label(text="Sudoku Solver", font="Times 30")
-titleText.grid(row=0,column=0, pady=(10,0))
-#titleText.pack(side=TOP)
-
+titleText.grid(row=0, column=0, pady=(10, 0))
 
 master.mainloop()
 
